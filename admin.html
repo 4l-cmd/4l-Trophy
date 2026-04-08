@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — 4L HAVRAID</title>
+<meta name="description" content="Tableau de bord administrateur 4L HAVRAID">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--sand:#F5ECD7;--sand-dark:#E8D5B0;--terra:#C4622D;--terra-dark:#9B4A1F;--green:#2D6A4F;--green-light:#52B788;--night:#0D1117;--night2:#161B22;--night3:#21262D;--muted:#8B949E;--text:#E6EDF3;--text-dim:#C9D1D9;--accent:#F0A500;--blue:#1F6FEB;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--night);color:var(--text);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;min-height:100vh;display:flex;}
+
+.auth-container{width:100%;height:100vh;display:flex;align-items:center;justify-content:center;background:var(--night);}
+.auth-box{background:var(--night2);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:48px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.auth-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:var(--accent);text-align:center;margin-bottom:8px;text-transform:uppercase;}
+.auth-subtitle{font-size:13px;color:var(--muted);text-align:center;margin-bottom:32px;line-height:1.6;}
+
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.form-group input{width:100%;background:var(--night3);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:12px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .2s;}
+.form-group input:focus{border-color:var(--terra);}
+.form-group input::placeholder{color:var(--muted);}
+
+.auth-btn{width:100%;background:var(--terra);color:white;padding:12px;border:none;border-radius:4px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.auth-btn:hover{background:var(--terra-dark);}
+.auth-message{font-size:12px;color:var(--muted);text-align:center;margin-bottom:12px;}
+.auth-error{color:#f85149;margin-top:16px;text-align:center;font-size:12px;}
+
+/* DASHBOARD */
+.dashboard-wrapper{width:100%;display:flex;flex-direction:column;background:var(--night);}
+
+.dashboard-header{background:var(--night2);border-bottom:1px solid rgba(255,255,255,.06);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.dashboard-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;}
+.logout-btn{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.2);padding:8px 20px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:12px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.logout-btn:hover{color:var(--text);border-color:rgba(255,255,255,.4);}
+
+.dashboard-nav{background:var(--night2);border-bottom:1px solid rgba(255,255,255,.06);display:flex;padding:0 40px;overflow-x:auto;}
+.nav-tab{padding:14px 20px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border:none;transition:all .2s;}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.nav-tab:hover{color:var(--text);}
+
+.dashboard-content{flex:1;padding:40px;max-width:1400px;margin:0 auto;width:100%;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:40px;}
+.stat-card{background:var(--night2);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:28px;text-align:center;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;color:var(--accent);}
+.stat-label{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:12px;}
+
+/* TICKETS TABLE */
+.tickets-wrap{background:var(--night2);border:1px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden;}
+.tickets-table{width:100%;border-collapse:collapse;}
+.tickets-table th{background:var(--night3);padding:16px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid rgba(255,255,255,.06);text-align:left;}
+.tickets-table td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;}
+.tickets-table tr:hover{background:rgba(255,255,255,.02);}
+
+.status-badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;}
+.status-new{background:rgba(31,111,235,.15);color:#58a6ff;}
+.status-progress{background:rgba(240,165,0,.15);color:var(--accent);}
+.status-resolved{background:rgba(82,183,136,.15);color:var(--green-light);}
+
+.ticket-actions{display:flex;gap:8px;}
+.action-btn{background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--text-dim);padding:6px 12px;border-radius:4px;font-size:11px;cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif;}
+.action-btn:hover{border-color:var(--terra);color:var(--terra);}
+
+.empty-message{text-align:center;padding:40px;color:var(--muted);}
+
+/* TICKET DETAIL MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--night2);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:32px;width:600px;max-width:96vw;max-height:85vh;overflow-y:auto;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--sand);letter-spacing:2px;}
+.modal-close{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;padding:0;}
+
+.ticket-detail{margin-bottom:24px;}
+.ticket-detail-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--terra);margin-bottom:6px;}
+.ticket-detail-value{font-size:14px;color:var(--text);line-height:1.6;}
+
+.ticket-detail{margin-bottom:24px;}
+.ticket-detail-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--terra);margin-bottom:6px;}
+.ticket-detail-value{font-size:14px;color:var(--text);line-height:1.6;}
+	.status-select{background:var(--night3);border:1px solid rgba(255,255,255,.08);color:var(--text);padding:8px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;}
+		.notes-section{background:var(--night3);border-radius:8px;padding:20px;margin-top:24px;border:1px solid rgba(255,255,255,.06);}
+		.notes-title{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+		.notes-list{display:flex;flex-direction:column;gap:12px;max-height:200px;overflow-y:auto;margin-bottom:16px;}
+		.note-item{background:var(--night2);padding:12px;border-radius:4px;border-left:3px solid var(--terra);font-size:12px;color:var(--text-dim);line-height:1.5;}
+
+	.note-input{width:100%;background:var(--night3);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:10px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;margin-bottom:12px;resize:vertical;min-height:60px;}
+
+.ticket-detail-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--terra);margin-bottom:6px;}
+.ticket-detail-value{font-size:14px;color:var(--text);line-height:1.6;}
+
+.modal-actions{display:flex;gap:12px;margin-top:24px;}
+.modal-btn{flex:1;padding:10px;border:none;border-radius:4px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:1px;}
+.modal-btn-primary{background:var(--terra);color:white;}
+.modal-btn-primary:hover{background:var(--terra-dark);}
+.modal-btn-cancel{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.2);}
+.modal-btn-cancel:hover{color:var(--text);border-color:rgba(255,255,255,.4);}
+
+/* CONFIG */
+.config-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+.config-card{background:var(--night2);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:24px;}
+.config-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--sand);letter-spacing:2px;margin-bottom:16px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.form-group input,.form-group textarea{width:100%;background:var(--night3);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:10px 12px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;outline:none;}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--terra);}
+.form-group textarea{resize:vertical;min-height:100px;}
+
+.save-btn{background:var(--terra);color:white;padding:10px 24px;border:none;border-radius:4px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;cursor:pointer;text-transform:uppercase;letter-spacing:1px;transition:background .2s;}
+.save-btn:hover{background:var(--terra-dark);}
+
+.notif{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--night2);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:12px 24px;font-size:14px;z-index:900;transition:opacity .3s;}
+.notif.success{border-color:var(--green-light);color:var(--green-light);}
+.notif.error{border-color:#f85149;color:#f85149;}
+
+@media(max-width:700px){
+  .dashboard-header{padding:16px 20px;}
+  .dashboard-nav{padding:0 20px;}
+  .dashboard-content{padding:20px;}
+}
+</style>
+</head>
+<body>
+
+<div id="notif" class="notif" style="opacity:0;"></div>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen" class="auth-container">
+  <div class="auth-box">
+    <div class="auth-title">4L HAVRAID</div>
+    <div class="auth-subtitle">Admin — Tableau de bord</div>
+
+    <div id="auth-step1">
+      <div class="form-group">
+        <label>Adresse email</label>
+        <input type="email" id="auth-email" placeholder="admin@4lhavraid.fr">
+      </div>
+      <button class="auth-btn" onclick="checkEmail()">Envoyer le lien de connexion</button>
+      <div class="auth-message">Un lien magique sera envoyé à votre adresse email.</div>
+      <div id="auth-error" class="auth-error"></div>
+    </div>
+
+    <div id="auth-step2" style="display:none;">
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" id="auth-password" placeholder="Entrez le mot de passe">
+      </div>
+      <button class="auth-btn" onclick="loginPassword()">Connexion</button>
+      <button class="auth-btn" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--muted);" onclick="backToStep1()">← Retour</button>
+      <div id="auth-error2" class="auth-error"></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD SCREEN -->
+<div id="dashboard-screen" class="dashboard-wrapper" style="display:none;">
+  <div class="dashboard-header">
+    <div class="dashboard-title">Admin 4L HAVRAID</div>
+    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+  </div>
+
+  <div class="dashboard-nav">
+    <button class="nav-tab active" onclick="switchTab('stats', this)">Stats</button>
+    iv id="tab-stats" class="tab-content active">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:32px;color:var(--sand);">Statistiques</h2>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-km">0</div>
+          <div class="stat-label">km adoptés</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-sponsors">0</div>
+          <div class="stat-label">Sponsors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-tickets">0</div>
+          <div class="stat-label">Tickets en attente</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-donations">0 €</div>
+          <div class="stat-label">Dons total</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;">
+        <div style="background:var(--night2);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:24px;">
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--sand);margin-bottom:16px;">Adoption KM</h3>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:12px;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--terra);">Adoption</span>
+            <span id="adoption-pct" style="color:var(--muted);">0%</span>
+          </div>
+          <div style="height:8px;background:var(--night3);border-radius:4px;overflow:hidden;">
+            <div id="adoption-bar" style="height:100%;background:linear-gradient(90deg,var(--terra),var(--accent));width:0%;transition:width .6s ease;"></div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:12px;">
+            <span id="adoption-count">0</span> / 6000 km
+          </div>
+        </div>
+
+        <div style="background:var(--night2);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:24px;">
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--sand);margin-bottom:16px;">Revenus</h3>
+          <div style="display:flex;align-items:baseline;gap:8px;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--accent);" id="total-revenue">0 €</span>
+            <span style="color:var(--muted);">/ objectif</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:12px;">
+            Sponsorships + dons + adoptions
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TICKETS TAB -->
+    <div id="tab-tickets" class="tab-content">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:32px;color:var(--sand);">Support Tickets</h2>
+
+      <div class="tickets-wrap">
+        <table class="tickets-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Nom</th>
+              <th>Sujet</th>
+              <th>Message</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tickets-body">
+            <tr><td colspan="6" class="empty-message">Aucun ticket</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- KM TAB -->
+    <div id="tab-km" class="tab-content">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:32px;color:var(--sand);">Kilomètres adoptés</h2>
+      <div style="background:var(--night2);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:40px;text-align:center;color:var(--muted);">
+        Détails des kilomètres adoptés à venir...
+      </div>
+    </div>
+
+    <!-- SPONSORS TAB -->
+    <div id="tab-sponsors" class="tab-content">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:32px;color:var(--sand);">Sponsors</h2>
+      <div class="tickets-wrap">
+        <table class="tickets-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Entreprise</th>
+              <th>Contact</th>
+              <th>Email</th>
+              <th>Position</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="sponsors-body">
+            <tr><td colspan="6" class="empty-message">Aucun sponsor</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CONFIG TAB -->
+    <div id="tab-config" class="tab-content">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:32px;color:var(--sand);">Configuration</h2>
+
+      <div class="config-grid">
+        <div class="config-card">
+          <div class="config-title">Prix KM</div>
+          <div class="form-group">
+            <label>Tarif par km (€)</label>
+            <input type="number" id="config-km-price" value="1" min="0" step="0.1">
+          </div>
+          <button class="save-btn" onclick="saveConfig()">Enregistrer</button>
+        </div>
+
+        <div class="config-card">
+          <div class="config-title">Équipage</div>
+          <div class="form-group">
+            <label>Chauffeur</label>
+            <input type="text" id="config-driver" value="Gabin">
+          </div>
+          <div class="form-group">
+            <label>Passager</label>
+            <input type="text" id="config-passenger" value="Jules">
+          </div>
+          <button class="save-btn" onclick="saveConfig()">Enregistrer</button>
+        </div>
+
+        <div class="config-card">
+          <div class="config-title">Organisateur</div>
+          <div class="form-group">
+            <label>SIREN</label>
+            <input type="text" id="config-siren" value="103 219 689">
+          </div>
+          <div class="form-group">
+            <label>SIRET</label>
+            <input type="text" id="config-siret" value="103 219 689 00017">
+          </div>
+          <button class="save-btn" onclick="saveConfig()">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKET DETAIL MODAL -->
+<div id="ticket-modal" class="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-ticket-num">Ticket #1</div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+
+    <div class="ticket-detail">
+      <div class="ticket-detail-label">Nom</div>
+      <div class="ticket-detail-value" id="modal-name"></div>
+    </div>
+
+    <div class="ticket-detail">
+      <div class="ticket-detail-label">Email</div>
+      <div class="ticket-detail-value" id="modal-email"></div>
+    </div>
+
+    <div class="ticket-detail">
+      <div class="ticket-detail-label">Sujet</div>
+      <div class="ticket-detail-value" id="modal-subject"></div>
+    </div>
+
+    <div class="ticket-detail">
+      <div class="ticket-detail-label">Message</div>
+      <div class="ticket-detail-value" id="modal-message"></div>
+    </div>
+
+    <div class="ticket-detail">
+      <div class="ticket-detail-label">Statut</div>
+      <select class="status-select" id="modal-status" onchange="updateTicketStatus()">
+        <option value="Nouveau">Nouveau</option>
+        <option value="En cours">En cours</option>
+        <option value="Résolu">Résolu</option>
+      </select>
+    </div>
+
+    <div class="notes-section">
+      <div class="notes-title">Notes internes</div>
+      <div class="notes-list" id="notes-list"></div>
+      <textarea class="note-input" id="new-note" placeholder="Ajouter une note..."></textarea>
+      <button class="save-btn" onclick="addNote()" style="width:100%;">Ajouter une note</button>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Fermer</button>
+      <button class="modal-btn modal-btn-primary" onclick="sendReply()">Envoyer une réponse</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ADMIN_EMAILS = ['gabin.binay@gmail.com', 'jules.marchand76@gmail.com'];
+const ADMIN_PASSWORD = '4lhavraid2026';
+
+let currentEmail = '';
+let currentTicketId = null;
+
+function checkEmail() {
+  const email = document.getElementById('auth-email').value.trim();
+  const errorEl = document.getElementById('auth-error');
+
+  if (!email) {
+    errorEl.textContent = 'Veuillez entrer une adresse email';
+    return;
+  }
+
+  if (ADMIN_EMAILS.includes(email)) {
+    currentEmail = email;
+    document.getElementById('auth-step1').style.display = 'none';
+    document.getElementById('auth-step2').style.display = 'block';
+  } else {
+    errorEl.textContent = 'Email non autorisé';
+  }
+}
+
+function backToStep1() {
+  currentEmail = '';
+  document.getElementById('auth-email').value = '';
+  document.getElementById('auth-password').value = '';
+  document.getElementById('auth-step1').style.display = 'block';
+  document.getElementById('auth-step2').style.display = 'none';
+  document.getElementById('auth-error').textContent = '';
+  document.getElementById('auth-error2').textContent = '';
+}
+
+function loginPassword() {
+  const password = document.getElementById('auth-password').value;
+  const errorEl = document.getElementById('auth-error2');
+
+  if (password === ADMIN_PASSWORD) {
+    sessionStorage.setItem('4lhavraid_admin_session', JSON.stringify({
+      email: currentEmail,
+      loginTime: new Date().toISOString()
+    }));
+    showDashboard();
+  } else {
+    errorEl.textContent = 'Mot de passe incorrect';
+  }
+}
+
+function checkSession() {
+  const session = sessionStorage.getItem('4lhavraid_admin_session');
+  if (session) {
+    const data = JSON.parse(session);
+    currentEmail = data.email;
+    showDashboard();
+  }
+}
+
+function showDashboard() {
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('dashboard-screen').style.display = 'flex';
+  loadDashboardData();
+}
+
+function logout() {
+  sessionStorage.removeItem('4lhavraid_admin_session');
+  location.reload();
+}
+
+function switchTab(tabName, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tabName).classList.add('active');
+  btn.classList.add('active');
+}
+
+function loadDashboardData() {
+  // Load tickets
+  const tickets = JSON.parse(localStorage.getItem('4lhavraid_tickets') || '[]');
+  const km = JSON.parse(localStorage.getItem('4lhavraid_km') || '[]');
+  const sponsors = JSON.parse(localStorage.getItem('4lhavraid_sponsors') || '[]');
+
+  // Update stats
+  const newTickets = tickets.filter(t => t.status === 'Nouveau').length;
+  const totalDonations = km.reduce((sum, k) => sum + (k.amount || 0), 0);
+
+  document.getElementById('stat-km').textContent = km.length;
+  document.getElementById('stat-sponsors').textContent = sponsors.length;
+  document.getElementById('stat-tickets').textContent = newTickets;
+  document.getElementById('stat-donations').textContent = totalDonations.toFixed(2) + ' €';
+
+  const adoptionPct = Math.round((km.length / 6000) * 100);
+  document.getElementById('adoption-pct').textContent = adoptionPct + '%';
+  document.getElementById('adoption-bar').style.width = adoptionPct + '%';
+  document.getElementById('adoption-count').textContent = km.length;
+  document.getElementById('total-revenue').textContent = (totalDonations + sponsors.length * 500).toFixed(2) + ' €';
+
+  // Load tickets table
+  const ticketsBody = document.getElementById('tickets-body');
+  if (tickets.length === 0) {
+    ticketsBody.innerHTML = '<tr><td colspan="6" class="empty-message">Aucun ticket</td></tr>';
+  } else {
+    ticketsBody.innerHTML = tickets.map((t, i) => `
+      <tr>
+        <td>${new Date(t.date).toLocaleDateString('fr-FR')}</td>
+        <td>${t.name}</td>
+        <td>${t.subject.substring(0, 20)}</td>
+        <td>${t.message.substring(0, 30)}...</td>
+        <td><span class="status-badge status-${t.status.toLowerCase().replace(' ', '')}">${t.status}</span></td>
+        <td><button class="action-btn" onclick="openTicket(${i})">Voir</button></td>
+      </tr>
+    `).join('');
+  }
+
+  // Load sponsors table
+  const sponsorsBody = document.getElementById('sponsors-body');
+  if (sponsors.length === 0) {
+    sponsorsBody.innerHTML = '<tr><td colspan="6" class="empty-message">Aucun sponsor</td></tr>';
+  } else {
+    sponsorsBody.innerHTML = sponsors.map((s, i) => `
+      <tr>
+        <td>${new Date(s.date).toLocaleDateString('fr-FR')}</td>
+        <td>${s.company}</td>
+        <td>${s.contact}</td>
+        <td>${s.email}</td>
+        <td>Position ${s.position}</td>
+        <td><button class="action-btn" onclick="alert('Détails sponsor: ' + s.company)">Voir</button></td>
+      </tr>
+    `).join('');
+  }
+}
+
+function openTicket(index) {
+  const tickets = JSON.parse(localStorage.getItem('4lhavraid_tickets') || '[]');
+  const ticket = tickets[index];
+  currentTicketId = index;
+
+  document.getElementById('modal-ticket-num').textContent = 'Ticket #' + (index + 1);
+  document.getElementById('modal-name').textContent = ticket.name;
+  document.getElementById('modal-email').textContent = ticket.email;
+  document.getElementById('modal-subject').textContent = ticket.subject;
+  document.getElementById('modal-message').textContent = ticket.message;
+  document.getElementById('modal-status').value = ticket.status;
+
+  // Load notes
+  const notesHtml = (ticket.notes || []).map(n => `
+    <div class="note-item">${n}</div>
+  `).join('');
+  document.getElementById('notes-list').innerHTML = notesHtml || '<div style="color:var(--muted);text-align:center;padding:20px;">Aucune note</div>';
+
+  document.getElementById('ticket-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('ticket-modal').classList.remove('open');
+  currentTicketId = null;
+}
+
+function updateTicketStatus() {
+  const tickets = JSON.parse(localStorage.getItem('4lhavraid_tickets') || '[]');
+  tickets[currentTicketId].status = document.getElementById('modal-status').value;
+  localStorage.setItem('4lhavraid_tickets', JSON.stringify(tickets));
+  loadDashboardData();
+  showNotif('Statut mis à jour', 'success');
+}
+
+function addNote() {
+  const newNote = document.getElementById('new-note').value.trim();
+  if (!newNote) return;
+
+  const tickets = JSON.parse(localStorage.getItem('4lhavraid_tickets') || '[]');
+  if (!tickets[currentTicketId].notes) tickets[currentTicketId].notes = [];
+  tickets[currentTicketId].notes.push(newNote);
+  localStorage.setItem('4lhavraid_tickets', JSON.stringify(tickets));
+
+  document.getElementById('new-note').value = '';
+  openTicket(currentTicketId);
+  showNotif('Note ajoutée', 'success');
+}
+
+function sendReply() {
+  showNotif('Réponse envoyée au client', 'success');
+}
+
+function saveConfig() {
+  const config = {
+    kmPrice: document.getElementById('config-km-price').value,
+    driver: document.getElementById('config-driver').value,
+    passenger: document.getElementById('config-passenger').value,
+    siren: document.getElementById('config-siren').value,
+    siret: document.getElementById('config-siret').value
+  };
+  localStorage.setItem('4lhavraid_config', JSON.stringify(config));
+  showNotif('Configuration enregistrée', 'success');
+}
+
+function showNotif(msg, type) {
+  const notif = document.getElementById('notif');
+  notif.textContent = msg;
+  notif.className = 'notif ' + type;
+  notif.style.opacity = '1';
+  setTimeout(() => {
+    notif.style.opacity = '0';
+  }, 3000);
+}
+
+// Init
+checkSession();
+</script>
+</body>
+</html>
