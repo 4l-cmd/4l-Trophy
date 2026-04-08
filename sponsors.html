@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sponsors — 4L HAVRAID</title>
+<meta name="description" content="Devenez sponsor de 4L HAVRAID. Visibilité sur 6000km du Havre à Marrakech.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--sand:#F5ECD7;--sand-dark:#E8D5B0;--terra:#C4622D;--terra-dark:#9B4A1F;--green:#2D6A4F;--green-light:#52B788;--night:#0D1117;--night2:#161B22;--night3:#21262D;--muted:#8B949E;--text:#E6EDF3;--text-dim:#C9D1D9;--accent:#F0A500;--blue:#1F6FEB;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--night);color:var(--text);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:rgba(13,17,23,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--accent);text-decoration:none;cursor:pointer;}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{font-size:12px;font-weight:400;color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-btn{background:var(--terra);color:white;border:none;padding:8px 20px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.nav-btn:hover{background:var(--terra-dark);}
+.back-btn{background:transparent;color:var(--muted);border:none;padding:8px 0;font-family:'Outfit',sans-serif;font-size:12px;font-weight:400;letter-spacing:1px;cursor:pointer;transition:color .2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.back-btn:hover{color:var(--text);}
+
+/* HERO */
+#hero{min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;position:relative;overflow:hidden;background:var(--night2);}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(196,98,45,.2) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 20% 20%,rgba(240,165,0,.08) 0%,transparent 60%);}
+.hero-tag{font-size:12px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:24px;border:1px solid rgba(240,165,0,.3);padding:6px 20px;border-radius:100px;display:inline-block;position:relative;z-index:1;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,9vw,96px);line-height:.9;letter-spacing:4px;color:var(--sand);position:relative;z-index:1;}
+.hero-sub{font-size:16px;font-weight:300;color:var(--muted);margin:28px 0 0;max-width:600px;line-height:1.7;position:relative;z-index:1;}
+
+/* SECTIONS */
+section{padding:90px 40px;max-width:1100px;margin:0 auto;}
+.section-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--terra);margin-bottom:14px;font-weight:500;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,5.5vw,68px);letter-spacing:2px;color:var(--sand);line-height:1;margin-bottom:18px;}
+.section-lead{font-size:16px;color:var(--muted);line-height:1.8;max-width:540px;margin-bottom:56px;}
+
+/* BUTTONS */
+.btn-primary{background:var(--terra);color:white;padding:14px 36px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s,transform .15s;}
+.btn-primary:hover{background:var(--terra-dark);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--text-dim);padding:14px 36px;border-radius:4px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:400;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,.15);cursor:pointer;text-decoration:none;display:inline-block;transition:border-color .2s,color .2s;}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);color:white;}
+
+/* CAR SECTION */
+.sponsor-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:40px;}
+@media(max-width:900px){.sponsor-layout{grid-template-columns:1fr;gap:40px;}}
+
+.car-container{position:relative;}
+.car-views-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.car-view-tab{background:var(--night3);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 16px;font-size:12px;letter-spacing:1px;color:var(--muted);cursor:pointer;transition:all .2s;text-transform:uppercase;}
+.car-view-tab.active{background:var(--terra);border-color:var(--terra);color:white;}
+.car-view-panel{display:none;}
+.car-view-panel.active{display:block;}
+
+.car-svg-wrap{position:relative;margin-bottom:24px;}
+.car-svg-wrap svg{width:100%;max-width:520px;display:block;margin:0 auto;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid rgba(255,255,255,.06);padding:20px;}
+
+.sticker-pos{cursor:pointer;transition:all .2s;}
+.sticker-pos circle{transition:all .2s;}
+.sticker-pos:hover circle{r:16;}
+.sticker-pos.taken circle{fill:rgba(240,165,0,.3)!important;stroke:var(--accent)!important;}
+.sticker-pos.taken text{fill:var(--accent)!important;}
+.sticker-pos text{font-size:11px;font-weight:bold;pointer-events:none;}
+
+.sponsor-info-panel{padding:24px;background:var(--night3);border-radius:8px;border:1px solid rgba(255,255,255,.08);margin-bottom:24px;}
+.sponsor-pos-title{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--sand);letter-spacing:2px;margin-bottom:8px;}
+.sponsor-pos-detail{font-size:13px;color:var(--muted);line-height:1.7;}
+
+/* PACKAGES */
+.packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:40px 0;}
+.package-card{background:var(--night3);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:28px;text-align:center;transition:all .2s;}
+.package-card:hover{border-color:var(--terra);transform:translateY(-4px);}
+.package-card.featured{border-color:var(--accent);background:rgba(240,165,0,.05);}
+.package-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--sand);margin-bottom:12px;}
+.package-price{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;color:var(--accent);margin:16px 0;}
+.package-price-sub{font-size:12px;color:var(--muted);margin-bottom:24px;}
+.package-features{list-style:none;margin:24px 0;text-align:left;}
+.package-features li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;color:var(--muted);}
+.package-features li:last-child{border-bottom:none;}
+.package-btn{width:100%;margin-top:24px;}
+
+/* DOSSIER SECTION */
+.dossier-section{background:var(--night3);border-radius:8px;padding:28px;border:1px solid rgba(255,255,255,.08);margin-top:40px;}
+.dossier-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--sand);letter-spacing:2px;margin-bottom:12px;}
+.dossier-text{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
+.dossier-icon{font-size:48px;margin-bottom:16px;}
+
+/* FORM */
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:var(--night3);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--terra);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted);}
+.form-group select option{background:var(--night3);}
+.form-group textarea{resize:vertical;min-height:100px;}
+
+.sponsor-form{background:var(--night2);border-radius:8px;padding:32px;border:1px solid rgba(255,255,255,.06);margin-top:40px;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px;}
+@media(max-width:700px){.contact-grid{grid-template-columns:1fr;}}
+.contact-card{background:var(--night2);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:28px;}
+.contact-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--terra);margin-bottom:8px;}
+.contact-value{font-size:16px;font-weight:500;color:var(--text);}
+.contact-sub{font-size:13px;color:var(--muted);margin-top:4px;}
+.contact-value a{color:var(--text);text-decoration:none;}
+.contact-value a:hover{color:var(--accent);}
+
+/* FOOTER */
+footer{background:var(--night2);border-top:1px solid rgba(255,255,255,.06);padding:40px;text-align:center;}
+.footer-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.footer-links a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;}
+.footer-links a:hover{color:var(--text);}
+.footer-copy{font-size:12px;color:var(--muted);}
+.footer-copy strong{color:var(--terra);}
+.footer-siren{font-size:11px;color:var(--muted);opacity:.5;margin-top:8px;}
+
+/* NOTIFICATION */
+.notif{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--night2);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:12px 24px;font-size:14px;z-index:900;transition:opacity .3s;pointer-events:none;}
+.notif.success{border-color:var(--green-light);color:var(--green-light);}
+.notif.error{border-color:#f85149;color:#f85149;}
+
+@media(max-width:700px){
+  nav{padding:12px 16px;}
+  .nav-links a{display:none;}
+  section{padding:60px 20px;}
+}
+</style>
+</head>
+<body>
+
+<div id="notif" class="notif" style="opacity:0;"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="4lhavraid.html" class="nav-logo">4L HAVRAID</a>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <a href="4lhavraid.html" class="back-btn">← Retour</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">Partenariat · Visibilité</div>
+  <h1 class="hero-title">DEVENEZ<br>SPONSOR</h1>
+  <p class="hero-sub">6 000 km du Havre à Marrakech.<br>Visibilité maximale sur la route et sur le web.</p>
+</div>
+
+<!-- SPONSOR SECTION -->
+<section id="sponsor-main">
+  <div class="section-tag">Placer votre logo</div>
+  <h2>Personnalisez votre placement</h2>
+  <p class="section-lead">Choisissez la position de votre logo sur la Renault 4L. Plus la position est visible, plus le coût augmente.</p>
+
+  <div class="sponsor-layout">
+    <div class="car-container">
+      <div class="car-views-tabs">
+        <button class="car-view-tab active" onclick="showCarView('left')">Vue Conducteur</button>
+        <button class="car-view-tab" onclick="showCarView('right')">Vue Passager</button>
+        <button class="car-view-tab" onclick="showCarView('front')">Avant</button>
+        <button class="car-view-tab" onclick="showCarView('rear')">Arrière</button>
+      </div>
+
+      <div class="car-view-panel active" id="view-left">
+        <div class="car-svg-wrap">
+          <svg id="car-sponsor-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280">
+            <!-- Car body - sandy beige -->
+            <rect x="50" y="80" width="420" height="140" rx="8" fill="#E8D5A3"/>
+            <!-- Windows area background -->
+            <rect x="80" y="95" width="100" height="50" rx="4" fill="#5a7a9e"/>
+            <rect x="200" y="95" width="100" height="50" rx="4" fill="#5a7a9e"/>
+            <rect x="320" y="95" width="80" height="50" rx="4" fill="#5a7a9e"/>
+            <!-- Front quarter window -->
+            <polygon points="75,95 90,95 85,130 70,130" fill="#7a9abc"/>
+            <!-- Rear quarter window -->
+            <polygon points="435,95 450,95 450,130 440,130" fill="#7a9abc"/>
+
+            <!-- Headlights -->
+            <circle cx="55" cy="105" r="8" fill="#ffeb99"/>
+            <circle cx="55" cy="105" r="6" fill="#fff9e6"/>
+
+            <!-- Taillights -->
+            <rect x="455" y="105" width="8" height="20" fill="#8b2d2d" rx="2"/>
+
+            <!-- Doors -->
+            <line x1="160" y1="80" x2="160" y2="220" stroke="#2a2a2a" stroke-width="2"/>
+            <line x1="280" y1="80" x2="280" y2="220" stroke="#2a2a2a" stroke-width="2"/>
+            <line x1="380" y1="80" x2="380" y2="220" stroke="#2a2a2a" stroke-width="2"/>
+
+            <!-- Door handles -->
+            <circle cx="150" cy="150" r="2" fill="#2a2a2a"/>
+            <circle cx="270" cy="150" r="2" fill="#2a2a2a"/>
+            <circle cx="370" cy="150" r="2" fill="#2a2a2a"/>
+
+            <!-- Roof - stepped design -->
+            <polygon points="80,80 440,80 420,50 100,50" fill="#d4b896"/>
+            <polygon points="420,50 440,80 460,60 440,40" fill="#c4a478"/>
+
+            <!-- Antenna -->
+            <line x1="250" y1="50" x2="250" y2="20" stroke="#2a2a2a" stroke-width="2"/>
+            <circle cx="250" cy="18" r="3" fill="#2a2a2a"/>
+
+            <!-- Bumpers -->
+            <rect x="45" y="215" width="430" height="6" fill="#555" rx="2"/>
+            <rect x="50" y="75" width="420" height="4" fill="#555" rx="2"/>
+
+            <!-- Wheels -->
+            <circle cx="100" cy="225" r="18" fill="#333"/>
+            <circle cx="100" cy="225" r="14" fill="#555"/>
+            <circle cx="100" cy="225" r="10" fill="#777"/>
+            <circle cx="100" cy="225" r="6" fill="#999"/>
+
+            <circle cx="420" cy="225" r="18" fill="#333"/>
+            <circle cx="420" cy="225" r="14" fill="#555"/>
+            <circle cx="420" cy="225" r="10" fill="#777"/>
+            <circle cx="420" cy="225" r="6" fill="#999"/>
+
+            <!-- Sponsor position markers (clickable) -->
+            <g class="sticker-pos" onclick="selectPosition('A', 'Porte avant', 'Grand espace visible de loin')">
+              <circle cx="150" cy="140" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="150" y="145" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">A</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('B', 'Capot avant', 'Visible de face')">
+              <circle cx="260" cy="70" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="260" y="75" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">B</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('C', 'Toit', 'Très visible vue du ciel')">
+              <circle cx="260" cy="40" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="260" y="45" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">C</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('D', 'Hayon arrière', 'Zone premium')">
+              <circle cx="380" cy="140" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="380" y="145" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">D</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('E', 'Pare-chocs avant', 'Visible en caravane')">
+              <circle cx="260" cy="215" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="260" y="220" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">E</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('F', 'Pare-chocs arrière', 'Photos suivantes')">
+              <circle cx="430" cy="215" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="430" y="220" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">F</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="car-view-panel" id="view-right">
+        <div class="car-svg-wrap">
+          <svg id="car-sponsor-svg-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 280" style="transform:scaleX(-1);">
+            <!-- Car body - sandy beige -->
+            <rect x="50" y="80" width="420" height="140" rx="8" fill="#E8D5A3"/>
+            <!-- Windows area background -->
+            <rect x="80" y="95" width="100" height="50" rx="4" fill="#5a7a9e"/>
+            <rect x="200" y="95" width="100" height="50" rx="4" fill="#5a7a9e"/>
+            <rect x="320" y="95" width="80" height="50" rx="4" fill="#5a7a9e"/>
+            <!-- Front quarter window -->
+            <polygon points="75,95 90,95 85,130 70,130" fill="#7a9abc"/>
+            <!-- Rear quarter window -->
+            <polygon points="435,95 450,95 450,130 440,130" fill="#7a9abc"/>
+
+            <!-- Headlights -->
+            <circle cx="55" cy="105" r="8" fill="#ffeb99"/>
+            <circle cx="55" cy="105" r="6" fill="#fff9e6"/>
+
+            <!-- Taillights -->
+            <rect x="455" y="105" width="8" height="20" fill="#8b2d2d" rx="2"/>
+
+            <!-- Doors -->
+            <line x1="160" y1="80" x2="160" y2="220" stroke="#2a2a2a" stroke-width="2"/>
+            <line x1="280" y1="80" x2="280" y2="220" stroke="#2a2a2a" stroke-width="2"/>
+            <line x1="380" y1="80" x2="380" y2="220" stroke="#2a2a2a" stroke-width="2"/>
+
+            <!-- Door handles -->
+            <circle cx="150" cy="150" r="2" fill="#2a2a2a"/>
+            <circle cx="270" cy="150" r="2" fill="#2a2a2a"/>
+            <circle cx="370" cy="150" r="2" fill="#2a2a2a"/>
+
+            <!-- Roof -->
+            <polygon points="80,80 440,80 420,50 100,50" fill="#d4b896"/>
+            <polygon points="420,50 440,80 460,60 440,40" fill="#c4a478"/>
+
+            <!-- Antenna -->
+            <line x1="250" y1="50" x2="250" y2="20" stroke="#2a2a2a" stroke-width="2"/>
+            <circle cx="250" cy="18" r="3" fill="#2a2a2a"/>
+
+            <!-- Bumpers -->
+            <rect x="45" y="215" width="430" height="6" fill="#555" rx="2"/>
+            <rect x="50" y="75" width="420" height="4" fill="#555" rx="2"/>
+
+            <!-- Wheels -->
+            <circle cx="100" cy="225" r="18" fill="#333"/>
+            <circle cx="100" cy="225" r="14" fill="#555"/>
+            <circle cx="100" cy="225" r="10" fill="#777"/>
+            <circle cx="100" cy="225" r="6" fill="#999"/>
+
+            <circle cx="420" cy="225" r="18" fill="#333"/>
+            <circle cx="420" cy="225" r="14" fill="#555"/>
+            <circle cx="420" cy="225" r="10" fill="#777"/>
+            <circle cx="420" cy="225" r="6" fill="#999"/>
+
+            <!-- Sponsor position markers -->
+            <g class="sticker-pos" onclick="selectPosition('A', 'Porte avant', 'Grand espace visible de loin')">
+              <circle cx="150" cy="140" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="150" y="145" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">A</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('B', 'Capot avant', 'Visible de face')">
+              <circle cx="260" cy="70" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="260" y="75" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">B</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('C', 'Toit', 'Très visible vue du ciel')">
+              <circle cx="260" cy="40" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="260" y="45" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">C</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('D', 'Hayon arrière', 'Zone premium')">
+              <circle cx="380" cy="140" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="380" y="145" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">D</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('E', 'Pare-chocs avant', 'Visible en caravane')">
+              <circle cx="260" cy="215" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="260" y="220" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">E</text>
+            </g>
+
+            <g class="sticker-pos" onclick="selectPosition('F', 'Pare-chocs arrière', 'Photos suivantes')">
+              <circle cx="430" cy="215" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="430" y="220" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">F</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="car-view-panel" id="view-front">
+        <div class="car-svg-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+            <!-- Front facing view -->
+            <rect x="20" y="60" width="160" height="120" rx="8" fill="#E8D5A3"/>
+            <!-- Windscreen -->
+            <rect x="30" y="70" width="140" height="50" fill="#5a7a9e" rx="4"/>
+            <!-- Hood -->
+            <polygon points="50,60 150,60 160,20 40,20" fill="#d4b896"/>
+            <!-- Headlights -->
+            <circle cx="50" cy="80" r="12" fill="#ffeb99"/>
+            <circle cx="150" cy="80" r="12" fill="#ffeb99"/>
+            <!-- Bumper -->
+            <rect x="20" y="175" width="160" height="8" fill="#555" rx="3"/>
+            <!-- Wheels -->
+            <circle cx="60" cy="200" r="16" fill="#333"/>
+            <circle cx="60" cy="200" r="12" fill="#555"/>
+            <circle cx="60" cy="200" r="8" fill="#777"/>
+            <circle cx="140" cy="200" r="16" fill="#333"/>
+            <circle cx="140" cy="200" r="12" fill="#555"/>
+            <circle cx="140" cy="200" r="8" fill="#777"/>
+            <!-- Sponsor spots front -->
+            <g class="sticker-pos" onclick="selectPosition('B', 'Capot avant', 'Visible de face')">
+              <circle cx="100" cy="45" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="100" y="50" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">B</text>
+            </g>
+            <g class="sticker-pos" onclick="selectPosition('E', 'Pare-chocs', 'Très visible')">
+              <circle cx="100" cy="180" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="100" y="185" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">E</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="car-view-panel" id="view-rear">
+        <div class="car-svg-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+            <!-- Rear facing view -->
+            <rect x="20" y="60" width="160" height="120" rx="8" fill="#E8D5A3"/>
+            <!-- Rear window -->
+            <rect x="30" y="70" width="140" height="50" fill="#5a7a9e" rx="4"/>
+            <!-- Hatch -->
+            <polygon points="40,80 160,80 150,20 50,20" fill="#c4a478"/>
+            <!-- Taillights -->
+            <circle cx="50" cy="100" r="10" fill="#8b2d2d"/>
+            <circle cx="150" cy="100" r="10" fill="#8b2d2d"/>
+            <!-- Bumper -->
+            <rect x="20" y="175" width="160" height="8" fill="#555" rx="3"/>
+            <!-- Wheels -->
+            <circle cx="60" cy="200" r="16" fill="#333"/>
+            <circle cx="60" cy="200" r="12" fill="#555"/>
+            <circle cx="60" cy="200" r="8" fill="#777"/>
+            <circle cx="140" cy="200" r="16" fill="#333"/>
+            <circle cx="140" cy="200" r="12" fill="#555"/>
+            <circle cx="140" cy="200" r="8" fill="#777"/>
+            <!-- Sponsor spots rear -->
+            <g class="sticker-pos" onclick="selectPosition('D', 'Hayon arrière', 'Zone premium')">
+              <circle cx="100" cy="45" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="100" y="50" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">D</text>
+            </g>
+            <g class="sticker-pos" onclick="selectPosition('F', 'Pare-chocs', 'Visible en caravane')">
+              <circle cx="100" cy="180" r="14" fill="rgba(240,165,0,.2)" stroke="rgba(240,165,0,.4)" stroke-width="2"/>
+              <text x="100" y="185" text-anchor="middle" font-family="Bebas Neue" fill="#F0A500">F</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sponsor-info-panel" id="position-panel">
+        <div class="sponsor-pos-title" id="position-title">Choisissez une position</div>
+        <div class="sponsor-pos-detail" id="position-detail">Cliquez sur l'une des lettres sur la voiture.</div>
+      </div>
+
+      <div class="section-tag">Forfaits</div>
+      <div class="packages-grid">
+        <div class="package-card">
+          <div class="package-name">Bronze</div>
+          <div class="package-price">350 €</div>
+          <div class="package-price-sub">Positions E, F</div>
+          <ul class="package-features">
+            <li>Logo petit format (10×10 cm)</li>
+            <li>Mention sur site</li>
+            <li>Couverture partielle</li>
+          </ul>
+          <button class="btn-primary package-btn" onclick="startSponsorSignup('Bronze', 350)">Choisir</button>
+        </div>
+
+        <div class="package-card featured">
+          <div class="package-name">Argent</div>
+          <div class="package-price">650 €</div>
+          <div class="package-price-sub">Positions A, C</div>
+          <ul class="package-features">
+            <li>Logo moyen format (15×15 cm)</li>
+            <li>Mention sur site</li>
+            <li>Couverture complète</li>
+            <li>Post Instagram</li>
+          </ul>
+          <button class="btn-primary package-btn" onclick="startSponsorSignup('Argent', 650)">Choisir</button>
+        </div>
+
+        <div class="package-card">
+          <div class="package-name">Or</div>
+          <div class="package-price">950 €</div>
+          <div class="package-price-sub">Positions B, D</div>
+          <ul class="package-features">
+            <li>Logo grand format (20×20 cm)</li>
+            <li>Mention sur site</li>
+            <li>Couverture maximale</li>
+            <li>Posts Instagram/TikTok</li>
+            <li>Logo site accueil</li>
+          </ul>
+          <button class="btn-primary package-btn" onclick="startSponsorSignup('Or', 950)">Choisir</button>
+        </div>
+      </div>
+
+      <div class="dossier-section">
+        <div class="dossier-icon">📄</div>
+        <div class="dossier-title">Notre dossier complet</div>
+        <div class="dossier-text">Téléchargez notre dossier de sponsoring pour plus d'informations détaillées, photos de la voiture, planning du raid, et statistiques de visibilité.</div>
+        <a href="https://canva.link/n0qciu7sne4od97" target="_blank" rel="noopener" class="btn-primary">📄 Voir notre dossier sponsor</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSOR FORM -->
+<section class="sponsor-form">
+  <div class="section-tag">Inscription</div>
+  <h2>Complétez votre inscription</h2>
+  <p class="section-lead">Remplissez ce formulaire et nous vous contacterons rapidement pour finaliser votre sponsorship.</p>
+
+  <form onsubmit="submitSponsorForm(event)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div class="form-group">
+        <label>Entreprise *</label>
+        <input type="text" id="sponsor-company-field" placeholder="Nom de votre entreprise" required>
+      </div>
+      <div class="form-group">
+        <label>Contact *</label>
+        <input type="text" id="sponsor-contact-field" placeholder="Prénom Nom" required>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div class="form-group">
+        <label>Email professionnel *</label>
+        <input type="email" id="sponsor-email-field" placeholder="contact@entreprise.fr" required>
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" id="sponsor-phone-field" placeholder="06 XX XX XX XX">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Adresse de l'entreprise *</label>
+      <input type="text" id="sponsor-address-field" placeholder="12 rue de la Paix, 75001 Paris" required>
+    </div>
+
+    <div class="form-group">
+      <label>SIRET (facultatif)</label>
+      <input type="text" id="sponsor-siret-field" placeholder="XXX XXX XXX XXXXX">
+    </div>
+
+    <div class="form-group">
+      <label>Position choisie *</label>
+      <select id="sponsor-position-field" required>
+        <option value="">Sélectionnez une position...</option>
+        <option value="A">Position A - Porte avant (650€)</option>
+        <option value="B">Position B - Capot avant (950€)</option>
+        <option value="C">Position C - Toit (650€)</option>
+        <option value="D">Position D - Hayon arrière (950€)</option>
+        <option value="E">Position E - Pare-chocs avant (350€)</option>
+        <option value="F">Position F - Pare-chocs arrière (350€)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Message (facultatif)</label>
+      <textarea id="sponsor-message-field" placeholder="Parlez-nous de votre entreprise..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-primary" style="width:100%;padding:14px;">Envoyer mon inscription</button>
+  </form>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Questions ?</div>
+  <h2>Nous contacter</h2>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-label">Email</div>
+      <div class="contact-value"><a href="mailto:contact@4lhavraid.fr">contact@4lhavraid.fr</a></div>
+      <div class="contact-sub">Réponse en 24h</div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-label">Téléphone</div>
+      <div class="contact-value"><a href="tel:+33612345678">+33 6 12 34 56 78</a></div>
+      <div class="contact-sub">Lun-Ven 9h-18h</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="4lhavraid.html">← Retour à l'accueil</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">4L HAVRAID © 2026 — Raid humanitaire étudiant</div>
+  <div class="footer-siren">SIREN: 103 219 689 · SIRET: 103 219 689 00017</div>
+</footer>
+
+<script>
+function showCarView(view) {
+  document.querySelectorAll('.car-view-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.car-view-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function selectPosition(pos, name, desc) {
+  document.getElementById('position-title').textContent = 'Position ' + pos;
+  document.getElementById('position-detail').textContent = name + ' — ' + desc;
+  document.getElementById('sponsor-position-field').value = pos;
+
+  // Unselect all positions
+  document.querySelectorAll('.sticker-pos').forEach(p => p.classList.remove('taken'));
+  // Select clicked position
+  event.currentTarget.classList.add('taken');
+}
+
+function startSponsorSignup(tier, price) {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  const field = document.getElementById('sponsor-position-field');
+  field.focus();
+  showNotif(tier + ' sélectionné - ' + price + '€', 'info');
+}
+
+function submitSponsorForm(event) {
+  event.preventDefault();
+  const data = {
+    company: document.getElementById('sponsor-company-field').value,
+    contact: document.getElementById('sponsor-contact-field').value,
+    email: document.getElementById('sponsor-email-field').value,
+    phone: document.getElementById('sponsor-phone-field').value,
+    address: document.getElementById('sponsor-address-field').value,
+    siret: document.getElementById('sponsor-siret-field').value,
+    position: document.getElementById('sponsor-position-field').value,
+    message: document.getElementById('sponsor-message-field').value,
+    date: new Date().toISOString()
+  };
+
+  // Save to localStorage
+  let sponsors = JSON.parse(localStorage.getItem('4lhavraid_sponsors') || '[]');
+  sponsors.push(data);
+  localStorage.setItem('4lhavraid_sponsors', JSON.stringify(sponsors));
+
+  showNotif('Inscription reçue! Nous vous contacterons bientôt.', 'success');
+  event.target.reset();
+}
+
+function showNotif(msg, type) {
+  const notif = document.getElementById('notif');
+  notif.textContent = msg;
+  notif.className = 'notif ' + type;
+  notif.style.opacity = '1';
+  setTimeout(() => {
+    notif.style.opacity = '0';
+  }, 3000);
+}
+</script>
+</body>
+</html>
